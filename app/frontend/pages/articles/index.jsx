@@ -7,13 +7,15 @@ import {
   Divider,
   Link,
 } from "@chakra-ui/react";
-import { Link as InertiaLink } from "@inertiajs/inertia-react";
+import { Head, Link as InertiaLink } from "@inertiajs/inertia-react";
 import formatTimestamp from "../../lib/formatTimestamp";
 import Layout from "../../components/Layout";
 
 function Index({ articles }) {
   return (
     <>
+      <Head title="Articles" />
+
       <HStack justifyContent="space-between" mb={6}>
         <Heading>Articles</Heading>
 

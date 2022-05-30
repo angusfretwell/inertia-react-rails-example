@@ -6,45 +6,56 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
-import { Link } from "@inertiajs/inertia-react";
+import { Head, Link } from "@inertiajs/inertia-react";
 import { Formik } from "formik";
 import Layout from "../../components/Layout";
 import ArticleForm from "./_form";
 
 function Edit({ article, errors }) {
   return (
-    <VStack alignItems="left" spacing={4}>
-      <Breadcrumb fontWeight="medium" fontSize="sm">
-        <BreadcrumbItem>
-          <BreadcrumbLink as={Link} href="/articles">
-            Articles
-          </BreadcrumbLink>
-        </BreadcrumbItem>
+    <>
+      <Head title="Edit article" />
 
-        <BreadcrumbItem>
-          <BreadcrumbLink as={Link} href={`/articles/${article.id}`}>
-            {article.title}
-          </BreadcrumbLink>
-        </BreadcrumbItem>
+      <VStack alignItems="left" spacing={4}>
+        <Breadcrumb fontWeight="medium" fontSize="sm">
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} href="/articles">
+              Articles
+            </BreadcrumbLink>
+          </BreadcrumbItem>
 
-        <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href="#">Edit</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} href={`/articles/${article.id}`}>
+              {article.title}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
 
-      <Heading>Editing article</Heading>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="#">Edit</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
 
-      <Formik
-        enableReinitialize
-        initialValues={article}
-        initialErrors={errors}
-        onSubmit={(values) => {
-          Inertia.put(`/articles/${article.id}`, values);
-        }}
-      >
-        <ArticleForm />
-      </Formik>
-    </VStack>
+        <Heading>Editing article</Heading>
+
+        <Formik
+          enableReinitialize
+          initialValues={{
+            title: article.title,
+            content: article.content,
+          }}
+          initialErrors={errors}
+          onSubmit={(values, { setSubmitting }) => {
+            try {
+              Inertia.put(`/articles/${article.id}`, values);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          <ArticleForm />
+        </Formik>
+      </VStack>
+    </>
   );
 }
 

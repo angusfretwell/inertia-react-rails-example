@@ -7,13 +7,15 @@ import {
   FormErrorMessage,
   VStack,
 } from "@chakra-ui/react";
-import { Form, Field, ErrorMessage } from "formik";
+import { Form, Field, ErrorMessage, useFormikContext } from "formik";
 
 export default function ArticleForm() {
+  const { errors, isSubmitting } = useFormikContext();
+
   return (
     <Form>
       <VStack align="flex-start" spacing={4}>
-        <FormControl>
+        <FormControl isInvalid={errors.title}>
           <FormLabel style={{ display: "block" }} htmlFor="title">
             Title
           </FormLabel>
@@ -21,7 +23,7 @@ export default function ArticleForm() {
           <ErrorMessage name="title" component={FormErrorMessage} />
         </FormControl>
 
-        <FormControl>
+        <FormControl isInvalid={errors.content}>
           <FormLabel style={{ display: "block" }} htmlFor="content">
             Content
           </FormLabel>
@@ -29,7 +31,9 @@ export default function ArticleForm() {
           <ErrorMessage name="content" component={FormErrorMessage} />
         </FormControl>
 
-        <Button type="submit">Save</Button>
+        <Button isLoading={isSubmitting} type="submit">
+          Save
+        </Button>
       </VStack>
     </Form>
   );

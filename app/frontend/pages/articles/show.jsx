@@ -9,43 +9,50 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
-import { Link } from "@inertiajs/inertia-react";
+import { Head, Link } from "@inertiajs/inertia-react";
 import Layout from "../../components/Layout";
 import formatTimestamp from "../../lib/formatTimestamp";
 
 function Show({ article }) {
-  const handleDelete = () => Inertia.delete(`/articles/${article.id}`);
+  const handleDelete = () => {
+    if (confirm(`Are you sure you want to delete ${article.title}?`))
+      Inertia.delete(`/articles/${article.id}`);
+  };
 
   return (
-    <VStack alignItems="left" spacing={4}>
-      <Breadcrumb fontWeight="medium" fontSize="sm">
-        <BreadcrumbItem>
-          <BreadcrumbLink as={Link} href="/articles">
-            Articles
-          </BreadcrumbLink>
-        </BreadcrumbItem>
+    <>
+      <Head title={article.title} />
 
-        <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href="#">{article.title}</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
+      <VStack alignItems="left" spacing={4}>
+        <Breadcrumb fontWeight="medium" fontSize="sm">
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} href="/articles">
+              Articles
+            </BreadcrumbLink>
+          </BreadcrumbItem>
 
-      <Heading>{article.title}</Heading>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="#">{article.title}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
 
-      <Text textTransform="uppercase" fontSize="xs" color="grey">
-        {formatTimestamp(article.created_at)}
-      </Text>
+        <Heading>{article.title}</Heading>
 
-      <ButtonGroup variant="outline" size="sm">
-        <Button as={Link} href={`/articles/${article.id}/edit`}>
-          Edit
-        </Button>
+        <Text textTransform="uppercase" fontSize="xs" color="grey">
+          {formatTimestamp(article.created_at)}
+        </Text>
 
-        <Button onClick={handleDelete}>Delete</Button>
-      </ButtonGroup>
+        <ButtonGroup variant="outline" size="sm">
+          <Button as={Link} href={`/articles/${article.id}/edit`}>
+            Edit
+          </Button>
 
-      <Text>{article.content}</Text>
-    </VStack>
+          <Button onClick={handleDelete}>Delete</Button>
+        </ButtonGroup>
+
+        <Text whiteSpace="pre-line">{article.content}</Text>
+      </VStack>
+    </>
   );
 }
 
