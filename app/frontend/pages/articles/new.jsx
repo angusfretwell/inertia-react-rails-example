@@ -1,3 +1,10 @@
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Heading,
+  VStack,
+} from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/inertia-react";
 import { Formik } from "formik";
@@ -6,8 +13,20 @@ import ArticleForm from "./_form";
 
 function New({ errors }) {
   return (
-    <>
-      <h1>New article</h1>
+    <VStack alignItems="left" spacing={4}>
+      <Breadcrumb fontWeight="medium" fontSize="sm">
+        <BreadcrumbItem>
+          <BreadcrumbLink as={Link} href="/articles">
+            Articles
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem isCurrentPage>
+          <BreadcrumbLink href="#">New</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+
+      <Heading>New article</Heading>
 
       <Formik
         enableReinitialize
@@ -22,13 +41,7 @@ function New({ errors }) {
       >
         <ArticleForm />
       </Formik>
-
-      <br />
-
-      <p>
-        <Link href="/articles">Back to articles</Link>
-      </p>
-    </>
+    </VStack>
   );
 }
 

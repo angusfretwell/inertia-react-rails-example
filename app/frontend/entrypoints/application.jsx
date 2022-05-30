@@ -1,6 +1,6 @@
 import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import axios from "axios";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   createInertiaApp({
     resolve: (name) => import(`../pages/${name}.jsx`),
     setup({ el, App, props }) {
-      render(<App {...props} />, el);
+      const root = createRoot(el);
+      root.render(<App {...props} />);
     },
   });
 });

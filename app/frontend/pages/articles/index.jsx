@@ -1,23 +1,44 @@
-import { Link } from "@inertiajs/inertia-react";
+import {
+  Button,
+  Heading,
+  HStack,
+  VStack,
+  Text,
+  Divider,
+  Link,
+} from "@chakra-ui/react";
+import { Link as InertiaLink } from "@inertiajs/inertia-react";
+import formatTimestamp from "../../lib/formatTimestamp";
 import Layout from "../../components/Layout";
-import Article from "./_article";
 
 function Index({ articles }) {
   return (
     <>
-      <h1>Articles</h1>
+      <HStack justifyContent="space-between" mb={6}>
+        <Heading>Articles</Heading>
 
-      {articles.map((article) => (
-        <div key={article.id}>
-          <Article {...article} />
+        <Button as={InertiaLink} href="/articles/new">
+          New article
+        </Button>
+      </HStack>
 
-          <p>
-            <Link href={`/articles/${article.id}`}>Show this article</Link>
-          </p>
-        </div>
-      ))}
+      <VStack alignItems="left" spacing={4} divider={<Divider />}>
+        {articles.map((article) => (
+          <VStack key={article.id} alignItems="left" spacing={2}>
+            <Heading as="h2" size="md">
+              {article.title}
+            </Heading>
 
-      <Link href="/articles/new">New article</Link>
+            <Text textTransform="uppercase" fontSize="xs" color="grey">
+              {formatTimestamp(article.created_at)}
+            </Text>
+
+            <Link as={InertiaLink} href={`/articles/${article.id}`}>
+              View article
+            </Link>
+          </VStack>
+        ))}
+      </VStack>
     </>
   );
 }
