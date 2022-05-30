@@ -3,20 +3,30 @@ class ArticlesController < ApplicationController
 
   # GET /articles
   def index
-    @articles = Article.all
+    articles = Article.all
+
+    render inertia: "articles/index", props: {
+      articles: articles,
+    }
   end
 
   # GET /articles/1
   def show
+    render inertia: "articles/show", props: {
+      article: article,
+    }
   end
 
   # GET /articles/new
   def new
-    @article = Article.new
+    render inertia: "articles/new"
   end
 
   # GET /articles/1/edit
   def edit
+    render inertia: "articles/edit", props: {
+      article: article,
+    }
   end
 
   # POST /articles
@@ -26,7 +36,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to @article, notice: "Article was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      redirect_to new_article_path(@article), inertia: { errors: @article.errors }
     end
   end
 
@@ -35,7 +45,7 @@ class ArticlesController < ApplicationController
     if @article.update(article_params)
       redirect_to @article, notice: "Article was successfully updated."
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to edit_article_path(@article), inertia: { errors: @article.errors }
     end
   end
 
@@ -46,13 +56,14 @@ class ArticlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def article_params
-      params.require(:article).permit(:title, :content)
-    end
+  attr_reader :article
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def article_params
+    params.require(:article).permit(:title, :content)
+  end
 end
