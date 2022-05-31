@@ -45,11 +45,9 @@ function Edit({ article, errors }) {
           }}
           initialErrors={errors}
           onSubmit={(values, { setSubmitting }) => {
-            try {
-              Inertia.put(`/articles/${article.id}`, values);
-            } finally {
-              setSubmitting(false);
-            }
+            Inertia.put(`/articles/${article.id}`, values, {
+              onFinish: () => setSubmitting(false),
+            });
           }}
         >
           <ArticleForm />

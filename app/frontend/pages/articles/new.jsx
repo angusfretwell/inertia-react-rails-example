@@ -39,11 +39,9 @@ function New({ errors }) {
           }}
           initialErrors={errors}
           onSubmit={(values, { setSubmitting }) => {
-            try {
-              Inertia.post(`/articles`, values);
-            } finally {
-              setSubmitting(false);
-            }
+            Inertia.post(`/articles`, values, {
+              onFinish: () => setSubmitting(false),
+            });
           }}
         >
           <ArticleForm />
