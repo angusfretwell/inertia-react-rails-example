@@ -35,7 +35,11 @@ function Index({ articles }) {
               {formatTimestamp(article.created_at)}
             </Text>
 
-            <Link as={InertiaLink} href={`/articles/${article.id}`}>
+            <Link
+              as={InertiaLink}
+              href={`/articles/${article.id}`}
+              color="blue.500"
+            >
               View article
             </Link>
           </VStack>
