@@ -11,7 +11,6 @@ import {
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/inertia-react";
 import Layout from "../../components/Layout";
-import formatTimestamp from "../../lib/formatTimestamp";
 
 function Show({ article }) {
   const handleDelete = () => {
@@ -39,7 +38,7 @@ function Show({ article }) {
         <Heading>{article.title}</Heading>
 
         <Text textTransform="uppercase" fontSize="xs" color="gray.600">
-          {formatTimestamp(article.created_at)}
+          {article.created_at}
         </Text>
 
         <ButtonGroup variant="outline" size="sm">

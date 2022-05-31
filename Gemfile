@@ -58,3 +58,4 @@ end
 
 gem "vite_rails"
 gem "inertia_rails"
+gem "active_model_serializers", "~> 0.10.0"

@@ -5,16 +5,12 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
 
-    render inertia: "articles/index", props: {
-      articles: @articles,
-    }
+    render inertia: "articles/index", props: { articles: serialize(@articles) }
   end
 
   # GET /articles/1
   def show
-    render inertia: "articles/show", props: {
-      article: @article,
-    }
+    render inertia: "articles/show", props: { article: serialize(@article) }
   end
 
   # GET /articles/new
@@ -24,9 +20,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
-    render inertia: "articles/edit", props: {
-      article: @article,
-    }
+    render inertia: "articles/edit", props: { article: serialize(@article) }
   end
 
   # POST /articles
@@ -36,7 +30,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to @article, notice: "Article was successfully created."
     else
-      redirect_to new_article_path(@article), inertia: { errors: error_messages }
+      redirect_to new_article_path(@article), inertia: { errors: serialize_errors(@article) }
     end
   end
 
@@ -45,7 +39,7 @@ class ArticlesController < ApplicationController
     if @article.update(article_params)
       redirect_to @article, notice: "Article was successfully updated."
     else
-      redirect_to edit_article_path(@article), inertia: { errors: error_messages }
+      redirect_to edit_article_path(@article), inertia: { errors: serialize_errors(@article) }
     end
   end
 
@@ -56,10 +50,6 @@ class ArticlesController < ApplicationController
   end
 
   private
-
-  def error_messages
-    @article.errors.as_json(full_messages: true)
-  end
 
   def set_article
     @article = Article.find(params[:id])

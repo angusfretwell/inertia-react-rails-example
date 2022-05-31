@@ -8,7 +8,6 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { Head, Link as InertiaLink } from "@inertiajs/inertia-react";
-import formatTimestamp from "../../lib/formatTimestamp";
 import Layout from "../../components/Layout";
 
 function Index({ articles }) {
@@ -32,7 +31,7 @@ function Index({ articles }) {
             </Heading>
 
             <Text textTransform="uppercase" fontSize="xs" color="gray.600">
-              {formatTimestamp(article.created_at)}
+              {article.created_at}
             </Text>
 
             <Link
