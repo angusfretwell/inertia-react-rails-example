@@ -31,14 +31,14 @@ function Index({ articles }) {
               {article.title}
             </Heading>
 
-            <Text textTransform="uppercase" fontSize="xs" color="grey">
+            <Text textTransform="uppercase" fontSize="xs" color="gray.600">
               {formatTimestamp(article.created_at)}
             </Text>
 
             <Link
               as={InertiaLink}
               href={`/articles/${article.id}`}
-              color="blue.500"
+              color="blue.600"
             >
               View article
             </Link>
