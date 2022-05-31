@@ -1,6 +1,6 @@
 import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
-import { createRoot } from "react-dom/client";
+import { render } from "react-dom";
 import axios from "axios";
 
 const pages = import.meta.glob("../pages/**/*.jsx");
@@ -14,8 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   createInertiaApp({
     resolve: (name) => pages[`../pages/${name}.jsx`](),
     setup({ el, App, props }) {
-      const root = createRoot(el);
-      root.render(<App {...props} />);
+      render(<App {...props} />, el);
     },
   });
 });
