@@ -1,14 +1,9 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Heading,
-  VStack,
-} from "@chakra-ui/react";
+import { Heading, VStack } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head } from "@inertiajs/inertia-react";
 import { Formik } from "formik";
 import Layout from "../../components/Layout";
+import Breadcrumb from "../../components/Breadcrumb";
 import ArticleForm from "./_form";
 
 function New({ errors }) {
@@ -17,17 +12,12 @@ function New({ errors }) {
       <Head title="New article" />
 
       <VStack alignItems="left" spacing={4}>
-        <Breadcrumb fontWeight="medium" fontSize="sm">
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} href="/articles">
-              Articles
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">New</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+        <Breadcrumb
+          items={[
+            { title: "Articles", href: "/articles" },
+            { title: "New", isCurrentPage: true },
+          ]}
+        />
 
         <Heading>New article</Heading>
 

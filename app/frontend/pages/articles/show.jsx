@@ -1,21 +1,14 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Button,
-  ButtonGroup,
-  Heading,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, ButtonGroup, Heading, Text, VStack } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/inertia-react";
 import Layout from "../../components/Layout";
+import Breadcrumb from "../../components/Breadcrumb";
 
 function Show({ article }) {
   const handleDelete = () => {
-    if (confirm(`Are you sure you want to delete ${article.title}?`))
+    if (confirm(`Are you sure you want to delete ${article.title}?`)) {
       Inertia.delete(`/articles/${article.id}`);
+    }
   };
 
   return (
@@ -23,22 +16,17 @@ function Show({ article }) {
       <Head title={article.title} />
 
       <VStack alignItems="left" spacing={4}>
-        <Breadcrumb fontWeight="medium" fontSize="sm">
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} href="/articles">
-              Articles
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">{article.title}</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+        <Breadcrumb
+          items={[
+            { title: "Articles", href: "/articles" },
+            { title: article.title, isCurrentPage: true },
+          ]}
+        />
 
         <Heading>{article.title}</Heading>
 
         <Text textTransform="uppercase" fontSize="xs" color="gray.600">
-          {article.created_at}
+          {article.createdAt}
         </Text>
 
         <ButtonGroup variant="outline" size="sm">

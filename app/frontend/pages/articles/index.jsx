@@ -31,7 +31,7 @@ function Index({ articles }) {
             </Heading>
 
             <Text textTransform="uppercase" fontSize="xs" color="gray.600">
-              {article.created_at}
+              {article.createdAt}
             </Text>
 
             <Link

@@ -1,14 +1,9 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Heading,
-  VStack,
-} from "@chakra-ui/react";
+import { Heading, VStack } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head } from "@inertiajs/inertia-react";
 import { Formik } from "formik";
 import Layout from "../../components/Layout";
+import Breadcrumb from "../../components/Breadcrumb";
 import ArticleForm from "./_form";
 
 function Edit({ article, errors }) {
@@ -17,23 +12,13 @@ function Edit({ article, errors }) {
       <Head title="Edit article" />
 
       <VStack alignItems="left" spacing={4}>
-        <Breadcrumb fontWeight="medium" fontSize="sm">
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} href="/articles">
-              Articles
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} href={`/articles/${article.id}`}>
-              {article.title}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">Edit</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+        <Breadcrumb
+          items={[
+            { title: "Articles", href: "/articles" },
+            { title: article.title, href: `/articles/${article.id}` },
+            { title: "Edit", isCurrentPage: true },
+          ]}
+        />
 
         <Heading>Editing article</Heading>
 

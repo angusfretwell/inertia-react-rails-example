@@ -16,17 +16,13 @@ export default function ArticleForm() {
     <Form>
       <VStack align="flex-start" spacing={4}>
         <FormControl isInvalid={errors.title}>
-          <FormLabel style={{ display: "block" }} htmlFor="title">
-            Title
-          </FormLabel>
+          <FormLabel htmlFor="title">Title</FormLabel>
           <Field as={Input} type="text" name="title" id="title" />
           <ErrorMessage name="title" component={FormErrorMessage} />
         </FormControl>
 
         <FormControl isInvalid={errors.content}>
-          <FormLabel style={{ display: "block" }} htmlFor="content">
-            Content
-          </FormLabel>
+          <FormLabel htmlFor="content">Content</FormLabel>
           <Field as={Textarea} name="content" id="content" />
           <ErrorMessage name="content" component={FormErrorMessage} />
         </FormControl>
